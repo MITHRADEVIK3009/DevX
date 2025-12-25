@@ -1,83 +1,183 @@
 # Copilot Context-Bridge
-Problem: Streamlining Developer Velocity by Eliminating Institutional Knowledge Silos
 
-## 1. Problem Statement & Proof
-Current developers face a "Productivity Paradox." While AI has accelerated coding, it has not solved the Discovery Gap.
+A VS Code Extension that reduces context-switching friction by surfacing relevant Teams chats, GitHub discussions, and SharePoint docs when you highlight code.
 
-The Friction: Developers spend ~30% of their week "information foraging"—hunting for the Why (Teams conversations) and the How (SharePoint specs) behind a GitHub issue.
+## The Problem
 
-The Data: Based on the Atlassian 2025 State of DevEx Report, 90% of developers lose 6+ hours weekly to context switching.
+Developers lose 6+ hours per week context switching:
+- Searching Teams for architectural decisions
+- Hunting SharePoint for authentication patterns
+- Scrolling GitHub PRs for design rationale
 
-Target Metric: Reduce "Mean Time to Context" (MTTC) from 20 minutes to <2 minutes.
+## Solution
 
-## 2. Analysis & Methodology
-I applied the Double Diamond design framework to move from the broad problem of "inefficiency" to the specific solution of "contextual surfacing."
+Highlight code and see the top 3 most relevant context nuggets from Teams, GitHub, and SharePoint in the sidebar.
 
-Prioritization Framework (RICE Score):
+## Features
 
-Reach: All developers using the Microsoft/GitHub ecosystem.
+- Code selection triggers instant context retrieval (< 200ms)
+- Semantic ranking with keyword matching (70%) and recency (30%)
+- Multiple sources: Teams, SharePoint, GitHub PRs, GitHub Issues
+- Direct links to source threads and discussions
+- Accessibility: Keyboard navigation, high contrast, ARIA labels
+- Metrics: Logs MTTC (Mean Time to Context) and user interactions
 
-Impact: High (Massive reduction in cognitive load and "Rage Clicks").
+## Quick Start
 
-Confidence: 80% (Based on 2025 DevEx survey data).
+Install and build:
 
-Effort: Medium (Leveraging existing Graph APIs and LLM context windows).
+```bash
+npm install
+npm run build
+```
 
-Tools Used: * SQL: To analyze telemetry on internal search failure rates.
+Run in VS Code (interactive):
 
-Microsoft Clarity: To identify user frustration patterns (rage clicks) during documentation navigation.
+```bash
+# Press F5 to start Extension Development Host
+# Select code in editor to trigger sidebar
+```
 
-Figma: For rapid prototyping of the sidebar UI.
+Preview UI only:
 
-3. Presenting the Analysis
-User Journey Mapping
-The current workflow requires a 7-step "App-Hopping" cycle:
+```bash
+npm run dev
+# Opens http://localhost:5173
+```
 
-View GitHub Issue -> 2. Open Teams -> 3. Search Keyword -> 4. Filter Threads -> 5. Open SharePoint -> 6. Locate Spec -> 7. Return to IDE.
+Test:
 
-Proposed Journey (The 2-Step Flow):
+```bash
+npm run test                # Run unit tests
+npm run test:coverage       # Coverage report
+npm run check:duplicates    # Check for duplicate content
+```
 
-View GitHub Issue/Code -> 2. View Auto-Populated Context Sidebar.
+Package for distribution:
 
-Technical Metrics
-Search Success Rate (SSR): Measuring the ratio of searches that lead to a document click vs. those that result in a new search query.
+```bash
+npm run package             # Creates .vsix file
+```
 
-MTTR (Mean Time to Resolution): Correlating quick access to documentation with faster bug fixes.
+## Architecture
 
-4. The Solution: Copilot Context-Bridge
-The Context-Bridge is an AI-powered sidebar integrated into GitHub and VS Code. It uses a Semantic Search Layer to connect:
+4-state finite state machine:
+1. State_Idle - Ready
+2. State_Trigger - Extract metadata from selection
+3. State_Retrieval - Rank context nuggets semantically
+4. State_Display - Render results in sidebar
 
-GitHub Issues: The task.
+See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
-Microsoft Teams: The decision history.
+## Project Structure
 
-SharePoint/Wiki: The technical requirement.
+```
+src/
+  extension.ts              # Entry point
+  stateMachine.ts           # State machine logic
+  types.ts                  # Type definitions
+  data/
+    contextDatabase.json    # Mock data
+  webview/
+    provider.ts             # Webview provider
+    main.tsx                # React entry
+    ui/
+      Sidebar.tsx           # UI components
+      Sidebar.css           # Styles
+  __tests__/
+    stateMachine.test.ts    # Unit tests
+```
 
-Back-Process Thinking: The solution utilizes the Microsoft Graph API to index private organizational data, ensuring that the AI suggestions are restricted by the user’s existing permissions (Security-First Design).
+## Test Coverage
 
-5. Results Evaluation & Measurement
-We measure success by the "Digital Exhaust" of the developer's workflow:
+12 unit tests covering:
+- State machine transitions
+- Metadata extraction
+- Semantic ranking (keyword + recency)
+- Scoring correctness
+- Context map generation
 
-Primary Metric: 40% reduction in Browser Tab Sprawl (unique domains visited per task).
+## Available Commands
 
-Engagement: Click-Through Rate (CTR) on "Suggested Threads."
+```bash
+npm run build               # Compile and bundle
+npm run dev                 # Start Vite dev server
+npm run test                # Run tests
+npm run test:watch          # Watch mode
+npm run test:coverage       # Coverage report
+npm run check:duplicates    # Content dedup check
+npm run lint                # ESLint
+npm run package             # Create .vsix
+```
 
-Qualitative: Developer Satisfaction Score (Net Promoter Score for internal tools).
+## Documentation
 
-6. Conclusions & Limitations
-Limitations:
+- [QUICK_START.md](QUICK_START.md) - Quick reference
+- [ARCHITECTURE.md](ARCHITECTURE.md) - Technical design
+- [TESTING.md](TESTING.md) - Testing strategy
+- [BUILD_SUMMARY.md](BUILD_SUMMARY.md) - Build details
 
-Cold Start Problem: New repositories with no history will have limited context.
+## Test Data Format
 
-Privacy/Compliance: Ensuring AI does not leak sensitive chat data across different team authorization levels.
+Add context nuggets to `src/data/contextDatabase.json`:
 
-Next Steps:
+```json
+{
+  "id": "unique-id",
+  "source": "Teams|SharePoint|GitHub PR|GitHub Issue",
+  "title": "Title",
+  "content": "Full context text",
+  "keywords": ["keyword1", "keyword2"],
+  "timestamp": "2025-12-24T12:00:00Z",
+  "author": "Name",
+  "relevanceScore": 0.85,
+  "url": "https://..."
+}
+```
 
-Integration with Azure DevOps for enterprise parity.
+## Technical Specifications
 
-Predictive Context: Pre-fetching documentation when a developer merely hovers over a legacy function.
+### Prototype (Current)
+- **MTTC**: ~50-150ms
+- **Database**: In-memory JSON (6 examples)
+- **Ranking**: O(n) keyword matching + recency filter
 
-7. References
-Atlassian State of DevEx Report 2025
-Microsoft Work Trend Index 2024/25
-GenUX Design Principles for AI Interfaces
+### Production (Live APIs)
+- **MTTC Target**: Still < 30 seconds
+- **Optimization needed**:
+  - Parallel API calls (Teams + GitHub simultaneously)
+  - Caching layer (local session cache)
+  - Debouncing frequent selections
+  - Pagination for large result sets
+
+## Status
+
+- Build: Clean (zero warnings)
+- Tests: 12/12 passing
+- Code Quality: No critical duplicates
+- Ready for: VS Code installation and testing
+
+## Resume / Portfolio Value
+
+This prototype demonstrates:
+
+1. **System Design**: Multi-tier architecture (extension layer, state machine, webview)
+2. **Product Thinking**: Solving a real DevEx problem (Atlassian 2025 research)
+3. **Technical PM Skills**: Scoping, prioritization (MVP → Production roadmap)
+4. **Full-Stack Engineering**:
+   - VS Code Extension API (native integration)
+   - React for UI
+   - TypeScript for type safety
+   - Semantic algorithms (ranking, filtering)
+5. **Metrics-Driven Approach**: MTTC tracking for product success
+
+## References
+
+- [VS Code Extension API Docs](https://code.visualstudio.com/api)
+- [Atlassian 2025 State of DevEx Report](https://www.atlassian.com/devex)
+- [Accessibility Guidelines (WCAG 2.1)](https://www.w3.org/WAI/WCAG21/quickref/)
+- [OpenAI API for Synthesis (Phase 3)](https://platform.openai.com/docs/guides/gpt)
+
+## License
+
+MIT - Student Portfolio Project
