@@ -1,0 +1,342 @@
+/* Context Bridge Sidebar Styles */
+/* High Contrast & Accessibility Support */
+
+:root {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f5f5f5;
+  --color-text-primary: #1e1e1e;
+  --color-text-secondary: #666666;
+  --color-border: #d0d0d0;
+  --color-accent: #0078d4;
+  --color-accent-dark: #005a9e;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --border-radius: 6px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: more) {
+  :root {
+    --color-bg-primary: #000000;
+    --color-bg-secondary: #1a1a1a;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #e0e0e0;
+    --color-border: #ffffff;
+    --color-accent: #00a8ff;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary: #1e1e1e;
+    --color-bg-secondary: #2d2d2d;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #b0b0b0;
+    --color-border: #404040;
+    --color-accent: #00a8ff;
+  }
+}
+
+/* Main Container */
+.context-bridge-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* Header */
+.sidebar-header {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.sidebar-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+/* Content Area */
+.loading-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-message {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Nuggets Container */
+.nuggets-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+  list-style: none;
+  margin: 0;
+}
+
+.nuggets-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.nuggets-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.nuggets-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 4px;
+}
+
+.nuggets-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-secondary);
+}
+
+/* Nugget Card */
+.nugget-card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.nugget-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.nugget-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.nugget-card:active {
+  transform: translateY(0);
+}
+
+/* Nugget Header */
+.nugget-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  font-size: 12px;
+}
+
+.nugget-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.nugget-source {
+  font-weight: 600;
+  color: var(--color-accent);
+  flex: 1;
+}
+
+.nugget-date {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+/* Nugget Content */
+.nugget-content {
+  margin-bottom: var(--spacing-sm);
+}
+
+.nugget-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+}
+
+/* Nugget Metadata */
+.nugget-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  padding: var(--spacing-xs) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+}
+
+.nugget-author {
+  font-weight: 500;
+}
+
+.nugget-relevance {
+  background-color: var(--color-success);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+/* Keywords */
+.nugget-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.keyword-tag {
+  display: inline-block;
+  background-color: var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* CTA Button */
+.nugget-link-btn {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.nugget-link-btn:hover {
+  background-color: var(--color-accent-dark);
+  transform: scale(1.02);
+}
+
+.nugget-link-btn:active {
+  transform: scale(0.98);
+}
+
+.nugget-link-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* Footer */
+.sidebar-footer {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.footer-text {
+  margin: 0;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Accessibility & Responsive */
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .nugget-card,
+  .nugget-link-btn {
+    animation: none;
+    transition: none;
+  }
+
+  .nugget-card:hover {
+    transform: none;
+  }
+
+  .nugget-link-btn:hover {
+    transform: none;
+  }
+}
+
+/* Small screens */
+@media (max-height: 400px) {
+  .sidebar-header,
+  .sidebar-footer {
+    padding: var(--spacing-sm);
+  }
+
+  .nuggets-container {
+    padding: var(--spacing-sm);
+  }
+
+  .nugget-card {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+}

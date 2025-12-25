@@ -1,0 +1,74 @@
+{
+  "name": "copilot-context-bridge",
+  "displayName": "Copilot Context-Bridge",
+  "description": "Proactively surface Teams and GitHub context in VS Code to reduce context switching friction",
+  "version": "0.0.1",
+  "publisher": "student-portfolio",
+  "type": "module",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:contextBridgeSidebar",
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "views": {
+      "sidebar": [
+        {
+          "id": "contextBridgeSidebar",
+          "name": "Context Bridge",
+          "icon": "$(search-view-icon)",
+          "contextualTitle": "Context Bridge"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "contextBridgeSidebar",
+        "contents": "Loading context...\n[Learn More](https://github.com)"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "compile": "tsc",
+    "package": "vsce package --baseImagesUrl https://raw.githubusercontent.com/student-portfolio/copilot-context-bridge/main",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "check:duplicates": "node scripts/check_duplicates.cjs",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@types/vscode": "^1.90.0",
+    "@types/vscode-webview": "^1.57.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vscode/vsce": "^2.24.0",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.3.0",
+    "vite": "^5.4.2"
+  }
+}

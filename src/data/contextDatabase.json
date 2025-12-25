@@ -1,0 +1,77 @@
+{
+  "contexts": [
+    {
+      "id": "teams-001",
+      "source": "Teams",
+      "channel": "#architecture-decisions",
+      "thread": "API Design Discussion",
+      "content": "We decided to use REST over GraphQL for the context-bridge API to keep the MVP simple. GraphQL can be added in v2.",
+      "keywords": ["API", "REST", "GraphQL", "architecture"],
+      "timestamp": "2025-12-15T10:30:00Z",
+      "author": "Sarah Chen",
+      "relevanceScore": 0.95,
+      "url": "https://teams.microsoft.com/l/message/teams-001"
+    },
+    {
+      "id": "teams-002",
+      "source": "Teams",
+      "channel": "#dev-culture",
+      "thread": "Context Switching Study",
+      "content": "The Atlassian 2025 DevEx report confirms developers lose 6+ hours weekly to context switching. Our Context Bridge targets a 40% reduction.",
+      "keywords": ["context-switching", "DevEx", "productivity", "metrics"],
+      "timestamp": "2025-12-10T14:20:00Z",
+      "author": "Marcus Johnson",
+      "relevanceScore": 0.92,
+      "url": "https://teams.microsoft.com/l/message/teams-002"
+    },
+    {
+      "id": "sharepoint-001",
+      "source": "SharePoint",
+      "document": "Engineering Handbook",
+      "section": "State Machine Design Patterns",
+      "content": "Our extension uses a finite state machine: Idle → Trigger → Retrieval → Display. Each transition is atomic and logged for observability.",
+      "keywords": ["state-machine", "FSM", "architecture", "design-pattern"],
+      "timestamp": "2025-12-12T09:00:00Z",
+      "author": "Elena Rodriguez",
+      "relevanceScore": 0.88,
+      "url": "https://sharepoint.com/docs/engineering-handbook"
+    },
+    {
+      "id": "github-001",
+      "source": "GitHub PR",
+      "repo": "microsoft/context-bridge",
+      "pr": "#42",
+      "title": "Implement semantic ranking for context relevance",
+      "content": "The ranking algorithm prioritizes: (1) keyword density match, (2) recency within 6 months, (3) author trust score. Filters out stale docs.",
+      "keywords": ["ranking", "semantic", "relevance", "filtering"],
+      "timestamp": "2025-12-14T16:45:00Z",
+      "author": "DevOps Team",
+      "relevanceScore": 0.85,
+      "url": "https://github.com/microsoft/context-bridge/pull/42"
+    },
+    {
+      "id": "sharepoint-002",
+      "source": "SharePoint",
+      "document": "VS Code Extension Best Practices",
+      "section": "Webview Communication Protocol",
+      "content": "Extension ↔ Webview communication uses postMessage API. Always sanitize messages and validate sender origin for security.",
+      "keywords": ["webview", "security", "postMessage", "VS Code Extension API"],
+      "timestamp": "2025-12-08T11:15:00Z",
+      "author": "Security Team",
+      "relevanceScore": 0.90,
+      "url": "https://sharepoint.com/docs/vscode-best-practices"
+    },
+    {
+      "id": "teams-003",
+      "source": "Teams",
+      "channel": "#engineering",
+      "thread": "MTTC Target Discussion",
+      "content": "We're targeting Mean Time to Context (MTTC) < 30 seconds. Current manual search takes 5-10 minutes on average.",
+      "keywords": ["MTTC", "performance", "metrics", "KPI"],
+      "timestamp": "2025-12-14T08:30:00Z",
+      "author": "David Park",
+      "relevanceScore": 0.87,
+      "url": "https://teams.microsoft.com/l/message/teams-003"
+    }
+  ]
+}

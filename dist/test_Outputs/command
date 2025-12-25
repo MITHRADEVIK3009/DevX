@@ -1,0 +1,44 @@
+
+@MITHRADEVIK3009 ➜ /workspaces/filesfv (codespace-miniature-space-orbit-q77w57qw9qrjc576) $ cd /workspaces/filesfv && npm run build 2>&1 | grep -E "(✓|ERROR|error|warning)" | head -20
+✓ 35 modules transformed.
+✓ built in 2.58s
+@MITHRADEVIK3009 ➜ /workspaces/filesfv (codespace-miniature-space-orbit-q77w57qw9qrjc576) $ cd /workspaces/filesfv && npm run build && echo -e "\n✅ BUILD SUCCESS" && npm run test 2>&1 | tail -15
+
+> copilot-context-bridge@0.0.1 build
+> tsc && vite build
+
+vite v5.4.21 building for production...
+✓ 35 modules transformed.
+dist/style.css         6.73 kB │ gzip:   1.70 kB
+dist/extension.js     15.67 kB │ gzip:   4.29 kB │ map:    24.60 kB
+dist/webview.js    1,229.39 kB │ gzip: 218.38 kB │ map: 2,018.17 kB
+✓ built in 2.54s
+
+✅ BUILD SUCCESS
+    processSelection
+      ✓ should process selection and return context map (1 ms)
+      ✓ should return context map with valid structure (1 ms)
+    state management
+      ✓ should track initial state as idle
+      ✓ should provide state history
+      ✓ should allow session cache clearing (1 ms)
+    generateContextMap
+      ✓ should generate a valid context map (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        0.372 s, estimated 3 s
+Ran all test suites.
+@MITHRADEVIK3009 ➜ /workspaces/filesfv (codespace-miniature-space-orbit-q77w57qw9qrjc576) $ cd /workspaces/filesfv && echo "=== BUILD ===" && npm run build 2>&1 | grep "✓\|ERROR" && echo -e "\n=== TESTS ===" && npm run test 2>&1 | grep "Test Suites\|Tests:" && echo -e "\n=== QUALITY ===" && npm run check:duplicates 2>&1 | grep "No critical\|Total"
+=== BUILD ===
+✓ 35 modules transformed.
+✓ built in 2.43s
+
+=== TESTS ===
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+
+=== QUALITY ===
+   - Total: 6
+@MITHRADEVIK3009 ➜ /workspaces/filesfv (codespace-miniature-space-orbit-q77w57qw9qrjc576) $ 
